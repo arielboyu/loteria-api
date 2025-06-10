@@ -1,0 +1,23 @@
+{
+  "name": "loteria-api",
+  "version": "1.0.0",
+  "description": "API de lotería con Node.js y Prisma",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@prisma/client": "^6.9.0",
+    "bcryptjs": "^3.0.2",
+    "express": "^5.1.0",
+    "nodemailer": "^7.0.3",
+    "prisma": "^6.9.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  }
+}
