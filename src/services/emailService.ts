@@ -1,16 +1,16 @@
-import nodemailer from 'nodemailer';
+import nodemailer from "nodemailer";
 
-// Luego cambiar las credenciales por una app para loteria
-const transporter = nodemailer.createTransport({
+// TODO Luego cambiar las credenciales por una app para loteria
+const transporter = nodemailer.createTransport( {
   service: "gmail",
   auth: {
     user: "travelgrinviajes@gmail.com",
     pass: "xgfw dzad edqw kjxh",
   },
-});
+} );
 
 
-export async function sendVerificationCode(email, code, userName = 'Usuario') {
+export async function sendVerificationCode ( email: string, code: string, userName = "Usuario" ) {
   const htmlContent = `
     <!DOCTYPE html>
     <html>
@@ -35,13 +35,15 @@ export async function sendVerificationCode(email, code, userName = 'Usuario') {
     <body>
       <div class="container">
         <div class="logo">
-          <img src="https://i.ibb.co/fGSjQPVw/logo-loteria-removebg-preview-1.png" alt="Lotería de Córdoba" style="max-width: 200px;">
+          <img src="https://i.ibb.co/fGSjQPVw/logo-loteria-removebg-preview-1.png"
+          alt="Lotería de Córdoba" style="max-width: 200px;">
         </div>
         
         <h1 class="title">¡Hola ${userName}!</h1>
         
         <div class="content">
-          <p>Te estamos enviando este código de 6 dígitos porque requeriste <strong>recuperar tu contraseña</strong> en la <strong>aplicación de la Lotería de Córdoba</strong>.</p>
+          <p>Te estamos enviando este código de 6 dígitos porque requeriste 
+          <strong>recuperar tu contraseña</strong> en la <strong>aplicación de la Lotería de Córdoba</strong>.</p>
           
           <p>Por favor, utiliza este código para garantizar que el proceso sea seguro.</p>
         </div>
@@ -69,18 +71,19 @@ export async function sendVerificationCode(email, code, userName = 'Usuario') {
   `;
 
   const mailOptions = {
-    from: '"Lotería de Córdoba" <travelgrinviajes@gmail.com>',
+    from: "\"Lotería de Córdoba\" <travelgrinviajes@gmail.com>",
     to: email,
-    subject: 'Código de seguridad',
+    subject: "Código de seguridad",
     html: htmlContent,
   };
 
   try {
-    await transporter.sendMail(mailOptions);
-    console.log(`📧 Email enviado a ${email}`);
+    await transporter.sendMail( mailOptions );
+    console.log( "pepe" );
+    console.log( `📧 Email enviado a ${email}` );
     return true;
-  } catch (error) {
-    console.error('Error enviando email:', error);
+  } catch ( error ) {
+    console.error( "Error enviando email:", error );
     return false;
   }
 }

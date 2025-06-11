@@ -1,0 +1,100 @@
+openapi: '3.0.0'
+info:
+  title: User API
+  version: 1.0.0
+  description: API for user management
+
+paths:
+
+  /auth/send-verification:
+    post:
+      summary: Send code to the user's email
+      description: Sends a a code to the user to validate that he is the owner of the email.
+      tags:
+        - Auth
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - email
+              properties:
+                email:
+                  type: string
+                  format: email
+                  description: |
+                    The email address to which the verification code will be sent.
+                  example: user@example.com
+      responses:
+        "200":
+          description: Code sent succesfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Código de verificación enviado por email"
+                  email:
+                    type: string
+                    example: user@example.com
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                Required Fields:
+                  summary: This fields are required
+                  value:
+                    errors:
+                      -  
+                        type: "field"
+                        msg: "El email es requerido."
+                        path: "email"
+                        location: "body"
+
+                commonValidations:
+                  summary: Common validations
+                  value:
+                    errors:
+                      -  
+                         type: field
+                         value: esteesmimail
+                         msg: No ingresó un formato de mail válido.
+                         path: email
+                         location: body
+
+                duplicatedEmail:
+                  summary: Email validation
+                  value:
+                    errors:
+                      -  
+                         type: field
+                         value: user@example.com
+                         msg: Este email ya está registrado.
+                         path: email
+                         location: body
+
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Error enviando el email.
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
